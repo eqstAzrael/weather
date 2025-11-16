@@ -3,7 +3,7 @@ import './weathermodule.css';
 
 function Weather() {
 
-    const [city, setCity] = useState('Moscow');
+    const [city, setCity] = useState('London');
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [currentDayIndex, setCurrentDayIndex] = useState(1);
@@ -90,10 +90,6 @@ function Weather() {
                     }
         });
     }
-
-    useEffect(() => {
-        GetWeather();
-    }, []);
 
     const currentDay = weatherData?.days?.[currentDayIndex];
 
