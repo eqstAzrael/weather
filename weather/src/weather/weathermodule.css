@@ -16,7 +16,7 @@ body {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     padding: 40px;
     width: 100%;
-    max-width: 700px;
+    max-width: 600px;
     box-sizing: border-box;
     margin: 20px;
     backdrop-filter: blur(5px);
@@ -96,7 +96,9 @@ body {
 }
 
 .weather-results {
+
     margin-top: 30px;
+    justify-content: center;
 }
 
 .city-title {
@@ -108,49 +110,94 @@ body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.03);
 }
 
-.days-container {
-    display: grid;    
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    justify-content: center;
-}
-
-.day-card {
-    background: #f8fcff;
-    border-radius: 18px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    padding: 25px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.day-navigation {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
 }
 
-.day-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+.nav-button {
+    background: linear-gradient(45deg, #00bcd4, #00838f);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nav-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 188, 212, 0.4);
+    background: linear-gradient(45deg, #00838f, #00bcd4);
+}
+
+.nav-button:active:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 188, 212, 0.2);
+}
+
+.nav-button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    opacity: 0.5;
+}
+
+.current-day {
+    flex: 1;
+    text-align: center;
 }
 
 .day-date {
     color: #00bcd4;
-    font-size: 1.3em;
-    margin-bottom: 15px;
+    font-size: 1.8em;
+    margin: 0;
     font-weight: 600;
-    align-self: center;
+}
+
+.date-small {
+    font-size: 0.7em;
+    color: #78909c;
+    display: block;
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+.weather-card {
+    background: #f8fcff;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 .weather-info {
     width: 100%;
-    margin-top: 10px;
 }
 
 .temp-item, .weather-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    font-size: 1em;
-    padding-bottom: 8px;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    padding-bottom: 10px;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
 }
 
@@ -173,8 +220,8 @@ body {
 .weather-item.description {
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 15px;
-    padding-top: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     border-bottom: none;
     padding-bottom: 0;
@@ -184,7 +231,7 @@ body {
     font-weight: 600;
     margin-bottom: 8px;
     color: #00bcd4;
-    font-size: 1.05em;
+    font-size: 1.15em;
 }
 
 .weather-item.description .weather-value {
@@ -192,7 +239,7 @@ body {
     font-weight: normal;
     color: #4f5b6b;
     line-height: 1.4;
-    font-size: 0.95em;
+    font-size: 1em;
 }
 
 @media (max-width: 600px) {
@@ -221,12 +268,27 @@ body {
         margin-bottom: 20px;
     }
 
-    .day-card {
-        padding: 20px;
+    .day-navigation {
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .nav-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
     }
 
     .day-date {
-        font-size: 1.2em;
+        font-size: 1.5em;
+    }
+
+    .weather-card {
+        padding: 20px;
+    }
+
+    .temp-item, .weather-item {
+        font-size: 1em;
     }
 }
 
@@ -249,12 +311,22 @@ body {
         font-size: 1.5em;
     }
 
-    .day-card {
-        padding: 15px;
+    .day-navigation {
+        gap: 10px;
+    }
+
+    .nav-button {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
     }
 
     .day-date {
-        font-size: 1.1em;
+        font-size: 1.3em;
+    }
+
+    .weather-card {
+        padding: 15px;
     }
 
     .temp-item, .weather-item {
